@@ -1,0 +1,6 @@
+songtext -a lily allen -t not fair > temp.txt
+python run.py
+
+./songtext imagine dragons -l  ## List related songs
+
+./songtext imagine dragons -l -i 3 ## Song with index 3 in list

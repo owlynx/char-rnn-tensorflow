@@ -1,11 +1,10 @@
-from __future__ import print_function
 import numpy as np
 import tensorflow as tf
 
 import argparse
 import time
 import os
-from six.moves import cPickle
+import cPickle
 
 from utils import TextLoader
 from model import Model
@@ -22,9 +21,9 @@ def main():
     sample(args)
 
 def sample(args):
-    with open(os.path.join(args.save_dir, 'config.pkl'), 'rb') as f:
+    with open(os.path.join(args.save_dir, 'config.pkl')) as f:
         saved_args = cPickle.load(f)
-    with open(os.path.join(args.save_dir, 'chars_vocab.pkl'), 'rb') as f:
+    with open(os.path.join(args.save_dir, 'chars_vocab.pkl')) as f:
         chars, vocab = cPickle.load(f)
     model = Model(saved_args, True)
     with tf.Session() as sess:
@@ -33,7 +32,7 @@ def sample(args):
         ckpt = tf.train.get_checkpoint_state(args.save_dir)
         if ckpt and ckpt.model_checkpoint_path:
             saver.restore(sess, ckpt.model_checkpoint_path)
-            print(model.sample(sess, chars, vocab, args.n, args.prime))
+            print model.sample(sess, chars, vocab, args.n, args.prime)
 
 if __name__ == '__main__':
     main()

@@ -1,0 +1,12 @@
+#### Sample training and testing commands for 'english_songs'
+
+## Delete previous files
+rm model_collections/english_songs/*
+rm data/english_songs/vocab.pkl data/english_songs/data.npy
+
+## Training
+python train.py --data_dir data/english_songs/ --save_dir model_collections/english_songs/ \
+                --num_layers 3 --num_epochs 500 --learning_rate 0.001
+
+## Generating
+python sample.py --save_dir model_collections/english_songs/ -n 100
