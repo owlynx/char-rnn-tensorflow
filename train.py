@@ -35,8 +35,14 @@ def main():
                        help='learning rate')
     parser.add_argument('--decay_rate', type=float, default=0.97,
                        help='decay rate for rmsprop')
+    parser.add_argument('--device', '-d', type=str, default='/gpu:0',
+                       help='device preference')
     args = parser.parse_args()
-    train(args)
+    if args.device == '/cpu:0':
+        with tf.device(args.device):
+            train(args)
+    else:
+        train(args)
 
 def train(args):
     data_loader = TextLoader(args.data_dir, args.batch_size, args.seq_length)

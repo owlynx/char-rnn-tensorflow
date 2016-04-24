@@ -17,8 +17,11 @@ def main():
                        help='number of characters to sample')
     parser.add_argument('--prime', type=str, default=' ',
                        help='prime text')
+    parser.add_argument('--device', '-d', type=str, default='/gpu:0',
+                       help='device preference')
     args = parser.parse_args()
-    sample(args)
+    with tf.device(args.device):
+        sample(args)
 
 def sample(args):
     with open(os.path.join(args.save_dir, 'config.pkl')) as f:
